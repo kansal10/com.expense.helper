@@ -1,0 +1,23 @@
+.expense-general-align-center {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.category-expenses-table {
+    border-collapse: collapse;
+    width: 100%;
+        border: 1px solid #ffb366;
+}
+
+.category-expenses-table th, td {
+    text-align: left;
+    padding: 5px;
+
+}
+
+.category-expenses-table tr:nth-child(even){background-color: #f2f2f2}
+
+.category-expenses-table th {
+    background-color: #ffb366;
+    color: white;
+}
