@@ -12,7 +12,7 @@ var mainView = myApp.addView('.view-main', {
 
 var host = window.location.hostname;
 
-$$("#expensedOn").val(getCurrentDateString());
+$$("#expenseDateTime").val(getCurrentDateString());
 
 retrieveResultsByCategory();
 
@@ -23,9 +23,10 @@ $$('.submit-button').on('click', function(e) {
 	// console.log(JSON.stringify(details));
 
 	var jsonData = JSON.stringify(details);
-	var requestURLAddExpense = "http://" + host + ":8080/api/addExpense";
+//	var requestURLAddExpense = "http://" + host + ":8080/api/addExpense";
+	var requestURLAddExpense = "http://" + host + ":8080/expensehelper/api/addExpense";
 
-	// myApp.alert(requestURLAddExpense);
+//	 myApp.alert(jsonData);
 
 	$$.ajax({
 		url : requestURLAddExpense,
@@ -38,6 +39,7 @@ $$('.submit-button').on('click', function(e) {
 			if (xhr.status.toString() == "201") {
 				myApp.alert("Success!!!");
 				// mainView.router.refreshPage();
+				setFormFieldsToDefaultState();
 			} else {
 				myApp.alert("Error" + xhr.responseText);
 			}
@@ -51,7 +53,8 @@ $$('#expense-refresh-button').on('click', function(e) {
 });
 
 function retrieveResultsByCategory() {
-	var apiPath = "http://" + host + ":8080/api/getExpensesByCategory";
+//	var apiPath = "http://" + host + ":8080/api/getExpensesByCategory";
+	var apiPath = "http://" + host + ":8080/expensehelper/api/getExpensesByCategory";
 
 	$$.ajax({
 		url : apiPath,// "http://localhost:8080/api/getExpensesByCategory",
@@ -61,7 +64,7 @@ function retrieveResultsByCategory() {
 		contentType : "application/json",
 		cache : false,
 		complete : function(data) {
-			// console.log(data.responseText);
+//			 console.log(data.responseText);
 			$$("#category-result-accordian-view ul").empty();
 			getCategoryTypeResultsHTMLString(JSON.parse(data.responseText));
 		}

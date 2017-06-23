@@ -6,11 +6,28 @@ function getFormDetails() {
     return {
         "expenseAmount": parseFloat($$("#expense-amount").val(), 10),
         "comments": $$("#comments").val(),
-        "expensedOn": new Date($$("#expensedOn").val()),
+        "expenseDateTime": new Date($$("#expenseDateTime").val()),
         "categoryType": $$("#category").val(),
         "storeDescription": $$("#store-description-autocomplete").val(),
-        "expensedBy": $$("#spendBy").val()
+        "spendBy": $$("#spendBy").val(),
+        "spendOn": $$("#spendOn").val()
     }
+}
+
+function setFormFieldsToDefaultState() {
+        $$("#expense-amount").val('');
+         $$("#comments").val('');
+        $$("#expenseDateTime").val(getCurrentDateString());
+        $$("#store-description-autocomplete").val('');
+        
+        var category = $$("#category");
+        category.val(category.find('option[selected]').val());
+        
+        var spendOn = $$("#spendOn");
+        spendOn.val(spendOn.find('option[selected]').val());
+        
+        var spendBy = $$("#spendBy");
+        spendBy.val(spendBy.find('option[selected]').val());
 }
 
 /**

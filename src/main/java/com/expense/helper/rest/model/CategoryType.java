@@ -10,53 +10,65 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public enum CategoryType
 {
     @JsonProperty("Groceries")
-    GROCERIES,
+    GROCERIES("Groceries"),
 
     @JsonProperty("Lunch")
-    LUNCH,
+    LUNCH("Lunch"),
 
     @JsonProperty("Dinner")
-    DINNER,
+    DINNER("Dinner"),
 
     @JsonProperty("HomeUtility")
-    HOME_UTILITY,
+    HOME_UTILITY("Home Utility"),
 
     @JsonProperty("Gas")
-    GAS,
+    GAS("Gas"),
 
     @JsonProperty("WholesaleStore")
-    WHOLESALE_STORE,
+    WHOLESALE_STORE("Wholesale Store"),
 
     @JsonProperty("RetailShopping")
-    RETAIL_SHOPPING,
+    RETAIL_SHOPPING("Retail Shopping"),
 
     @JsonProperty("OnlineShopping")
-    ONLINE_SHOPPING,
+    ONLINE_SHOPPING("Online Shopping"),
 
     @JsonProperty("IndianStore")
-    INDIAN_STORE,
+    INDIAN_STORE("Indian Store"),
 
     @JsonProperty("Clothes")
-    CLOTHES,
+    CLOTHES("Clothes"),
 
     @JsonProperty("MedicalBill")
-    MEDICAL_BILL,
+    MEDICAL_BILL("Medical Bill"),
 
     @JsonProperty("Pharmacy")
-    PHARMACY,
+    PHARMACY("Pharmacy"),
 
     @JsonProperty("HomeImprovement")
-    HOME_IMPROVEMENT,
+    HOME_IMPROVEMENT("Home Improvement"),
 
     @JsonProperty("Gifts")
-    GIFTS,
+    GIFTS(""),
 
     @JsonProperty("CarRepair")
-    CAR,
+    CAR(""),
 
     @JsonProperty("Insurance")
-    INSURANCE,
+    INSURANCE(""),
 
     @JsonProperty("Breakfast")
-    BREAKFAST,
+    BREAKFAST("");
+
+    private final String displayValue;
+
+    private CategoryType(String displayValue)
+    {
+        this.displayValue = displayValue;
+    }
+
+    public String getDisplayValue()
+    {
+        return displayValue;
+    }
 }

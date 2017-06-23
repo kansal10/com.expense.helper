@@ -15,7 +15,7 @@ public class ExpenseHelperExceptionHandler extends ResponseEntityExceptionHandle
 {
     private static final Logger log = LoggerFactory.getLogger(ExpenseHelperExceptionHandler.class);
 
-    @ExceptionHandler(value = { IllegalArgumentException.class, IllegalStateException.class })
+    @ExceptionHandler(value = { IllegalArgumentException.class, IllegalStateException.class, RuntimeException.class })
     protected ResponseEntity<Object> handleBadRequestException(RuntimeException ex, WebRequest request)
     {
         String bodyOfResponse = ex.toString();// "Bad data provided in the request";

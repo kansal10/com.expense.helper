@@ -2,12 +2,15 @@ package com.expense.helper.rest;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
 // @EnableWebMvc
 public class WebConfiguration extends WebMvcConfigurerAdapter
 {
+    private static final String[] CLASSPATH_RESOURCE_LOCATIONS = { "classpath:/META-INF/resources/",
+            "classpath:/resources/", "classpath:/static/", "classpath:/public/", "classpath:/static/index.hml" };
 
     @Override
     public void addCorsMappings(CorsRegistry registry)
@@ -20,8 +23,11 @@ public class WebConfiguration extends WebMvcConfigurerAdapter
         registry.addMapping("/**").allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH");
     }
 
-    // @Override
-    // public void addInterceptors(InterceptorRegistry registry) {
-    // registry.addInterceptor(new CorsInterceptor()).addPathPatterns("/**");
-    // }
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry)
+    {
+        // registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+        registry.addResourceHandler("/**").addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
+    }
+
 }

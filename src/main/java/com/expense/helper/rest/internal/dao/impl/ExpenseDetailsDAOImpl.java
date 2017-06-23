@@ -18,12 +18,13 @@ import com.expense.helper.rest.internal.db.ExpenseHelperDBConnection;
 import com.expense.helper.rest.internal.model.ExpenseDetailsImpl;
 import com.expense.helper.rest.model.CategoryType;
 import com.expense.helper.rest.model.ExpenseDetails;
-import com.expense.helper.rest.model.ExpensedBy;
+import com.expense.helper.rest.model.SpendBy;
+import com.expense.helper.rest.model.SpendOn;
 
 public class ExpenseDetailsDAOImpl implements ExpenseDetailsDAO
 {
-    private static final String ADD_EXPENSE_QUERY = "INSERT INTO expense_detail (ID, STORE_DESCRIPTION, "
-            + "CATEGORY_TYPE, " + "EXPENSED_BY, " + "AMOUNT, " + "COMMENT, " + "EXPENSED_ON) VALUES(?,?,?,?,?,?,?)";
+    private static final String ADD_EXPENSE_QUERY = "INSERT INTO expense_detail (ID, STORE_DESCRIPTION, CATEGORY_TYPE, "
+            + "SPEND_BY, SPEND_ON, AMOUNT, COMMENT, EXPENSE_DATETIME) VALUES(?,?,?,?,?,?,?,?)";
 
     @Override
     public void addExpenseDetails(ExpenseDetails expenseDetails)
@@ -40,11 +41,12 @@ public class ExpenseDetailsDAOImpl implements ExpenseDetailsDAO
             preparedStatement.setString(1, UUID.randomUUID().toString());
             preparedStatement.setString(2, expenseDetails.getStoreDescription());
             preparedStatement.setString(3, expenseDetails.getCategoryType().toString());
-            preparedStatement.setString(4, expenseDetails.getExpensedBy().toString());
-            preparedStatement.setBigDecimal(5, expenseDetails.getExpenseAmount());
-            preparedStatement.setString(6, expenseDetails.getComment());
-            preparedStatement.setDate(7,
-                    new Date(expenseDetails.getExpensedOn().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()));
+            preparedStatement.setString(4, expenseDetails.getSpendBy().toString());
+            preparedStatement.setString(5, expenseDetails.getSpendOn().toString());
+            preparedStatement.setBigDecimal(6, expenseDetails.getExpenseAmount());
+            preparedStatement.setString(7, expenseDetails.getComment());
+            preparedStatement.setDate(8, new Date(
+                    expenseDetails.getExpenseDateTime().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()));
 
             preparedStatement.executeUpdate();
 
@@ -58,7 +60,7 @@ public class ExpenseDetailsDAOImpl implements ExpenseDetailsDAO
     @Override
     public List<ExpenseDetails> getExpenseDetailsByMonthAndYear(int month, int year)
     {
-        String sql = "SELECT STORE_DESCRIPTION, CATEGORY_TYPE, EXPENSED_BY, AMOUNT, COMMENT, EXPENSED_ON FROM expense_detail";
+        String sql = "SELECT STORE_DESCRIPTION, CATEGORY_TYPE, SPEND_BY, SPEND_ON, AMOUNT, COMMENT, EXPENSE_DATETIME FROM expense_detail";
 
         Connection connection = ExpenseHelperDBConnection.getConnection();
 
@@ -73,9 +75,10 @@ public class ExpenseDetailsDAOImpl implements ExpenseDetailsDAO
                 ExpenseDetails expenseDetails = new ExpenseDetailsImpl.Builder()
                         .storeDescription(rs.getString("STORE_DESCRIPTION"))
                         .categoryType(CategoryType.valueOf(rs.getString("CATEGORY_TYPE")))
-                        .expensedBy(ExpensedBy.valueOf(rs.getString("EXPENSED_BY")))
-                        .expenseAmount(rs.getBigDecimal("AMOUNT")).comment(rs.getString("COMMENT"))
-                        .expensedOn(rs.getTimestamp("EXPENSED_ON").toLocalDateTime()).build();
+                        .spendBy(SpendBy.valueOf(rs.getString("SPEND_BY")))
+                        .spendOn(SpendOn.valueOf(rs.getString("SPEND_ON"))).expenseAmount(rs.getBigDecimal("AMOUNT"))
+                        .comment(rs.getString("COMMENT"))
+                        .expenseDateTime(rs.getTimestamp("EXPENSE_DATETIME").toLocalDateTime()).build();
 
                 allExpenseDetails.add(expenseDetails);
             }
@@ -87,5 +90,4 @@ public class ExpenseDetailsDAOImpl implements ExpenseDetailsDAO
         }
         return null;
     }
-
 }

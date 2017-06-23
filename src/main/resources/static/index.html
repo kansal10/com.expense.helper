@@ -96,7 +96,7 @@
 												<select id="spendOn">
 													<option>Pooja</option>
 													<option>Prateek</option>
-													<option>Home</option>
+													<option selected>Home</option>
 													<option>Kid</option>
 												</select>
 											</div>
@@ -110,8 +110,7 @@
 											<div class="item-input">
 												<select id="spendBy">
 													<option>Pooja</option>
-													<option>Prateek</option>
-													<option>Other</option>
+													<option selected>Prateek</option>
 												</select>
 											</div>
 										</div>
@@ -132,7 +131,7 @@
 										<div class="item-inner">
 											<div class="item-title label">Date</div>
 											<div class="item-input">
-												<input id="expensedOn" type="date" placeholder="Spend on">
+												<input id="expenseDateTime" type="date" placeholder="Spend on">
 											</div>
 										</div>
 									</div>
@@ -161,6 +160,10 @@
 			<div class="pages navbar-through">
 				<div data-page="index-2" class="page">
 					<div class="page-content">
+						
+						<div id="month-header-display" class="content-block-title"> Total Amount
+						<span id="total-expense-amount-badge" class="badge"></span></div>
+						
 						<!-- Accordian view starts here ------------------------------------>
 						<div id="category-result-accordian-view" class="list-block accordion-list">
 							<ul id="category-result-accordian-view"></ul>

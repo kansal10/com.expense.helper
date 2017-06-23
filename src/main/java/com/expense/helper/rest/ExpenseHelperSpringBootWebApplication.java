@@ -10,7 +10,6 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 // @EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class })
 public class ExpenseHelperSpringBootWebApplication extends SpringBootServletInitializer
 {
-
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application)
     {

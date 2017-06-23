@@ -7,33 +7,44 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
-import com.expense.helper.rest.model.CategoryExpensesDisplay;
+import com.expense.helper.rest.model.CategoryExpenseDisplays;
 import com.expense.helper.rest.model.CategoryType;
 import com.expense.helper.rest.model.ExpenseDetails;
 import com.expense.helper.rest.model.ExpenseDisplay;
+import com.expense.helper.rest.model.MonthlyExpenseDisplay;
 import com.expense.helper.rest.util.ArgumentChecker;
 
-public class CategoryExpensesDisplayTranlsator
+public class MonthlyExpenseDisplayTranlsator
 {
-    public List<CategoryExpensesDisplay> translateFrom(List<ExpenseDetails> allExpenseDetails)
+    public MonthlyExpenseDisplay translateFrom(List<ExpenseDetails> allExpenseDetails)
     {
         ArgumentChecker.rejectIfNull(allExpenseDetails, "allExpenseDetails");
-        List<CategoryExpensesDisplay> categoryExpensesDisplays = new ArrayList<CategoryExpensesDisplay>();
+
+        List<CategoryExpenseDisplays> categoryExpenseDisplays = new ArrayList<CategoryExpenseDisplays>();
 
         Map<CategoryType, List<ExpenseDetails>> allExpenseDetailsGroupedByCategory = allExpenseDetails.stream()
                 .collect(Collectors.groupingBy(w -> w.getCategoryType()));
+
+        List<BigDecimal> totalAmountForAllCategories = new ArrayList<BigDecimal>();
 
         for (Entry<CategoryType, List<ExpenseDetails>> entry : allExpenseDetailsGroupedByCategory.entrySet())
         {
             List<ExpenseDetails> expenseDetails = entry.getValue();
 
-            CategoryExpensesDisplay categoryExpensesDisplay = new CategoryExpensesDisplay(entry.getKey(),
-                    getTotalAmountForCategoryType(expenseDetails).floatValue(),
+            BigDecimal totalCategoryAmount = getTotalAmountForCategoryType(expenseDetails);
+            totalAmountForAllCategories.add(totalCategoryAmount);
+
+            CategoryExpenseDisplays categoryExpensesDisplay = new CategoryExpenseDisplays(
+                    entry.getKey().getDisplayValue(), totalCategoryAmount.floatValue(),
                     getExpenseDisplaysForCategoryType(expenseDetails));
 
-            categoryExpensesDisplays.add(categoryExpensesDisplay);
+            categoryExpenseDisplays.add(categoryExpensesDisplay);
         }
-        return categoryExpensesDisplays;
+
+        float totalMonthlyAmountInFloat = totalAmountForAllCategories.stream().reduce(BigDecimal.ZERO, BigDecimal::add)
+                .floatValue();
+
+        return new MonthlyExpenseDisplay(totalMonthlyAmountInFloat, categoryExpenseDisplays);
     }
 
     private BigDecimal getTotalAmountForCategoryType(List<ExpenseDetails> allExpenseDetails)
@@ -50,7 +61,8 @@ public class CategoryExpensesDisplayTranlsator
             ExpenseDisplay expenseDisplay = new ExpenseDisplay.Builder()
                     .storeDescription(expenseDetails.getStoreDescription())
                     .amount(expenseDetails.getExpenseAmount().floatValue()).comment(expenseDetails.getComment())
-                    .expenseBy(expenseDetails.getExpensedBy()).expensedOn(expenseDetails.getExpensedOn()).build();
+                    .spendOn(expenseDetails.getSpendOn()).spendBy(expenseDetails.getSpendBy())
+                    .expenseDateTime(expenseDetails.getExpenseDateTime()).build();
 
             expenseDisplays.add(expenseDisplay);
         }

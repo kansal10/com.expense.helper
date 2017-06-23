@@ -1,6 +1,13 @@
 function getCategoryTypeResultsHTMLString(result) {
+	
+//	$$("#month-header-display").html('');
 
-	result.forEach(function(item) {
+	$$("#total-expense-amount-badge").html(result.totalMonthlyExpense);
+//	$$("#month-header-display").append("Total Amount "+getCurrentMonthNameDisplay());
+	var categoryExpenseDisplays = result.categoryExpenseDisplays;
+	
+	
+	categoryExpenseDisplays.forEach(function(item) {
 
 		var uniqueNumber = getRandomInt();
 		var categoryItemsTableIdParentDivId = "category-type-content-items-table-parent-div-" + uniqueNumber;
@@ -11,7 +18,7 @@ function getCategoryTypeResultsHTMLString(result) {
 		var categoryItemsTableBodyId = "category-type-items-table-body-" + uniqueNumber;
 		var table = "<div id='"
 				+ categoryItemsTableId
-				+ "' class='data-table'><table class='category-expenses-table'><thead><tr><th class='label-cell'>Store</th><th class='label-cell'>Spend By</th><th class='numeric-cell'>Amount</th></tr></thead><tbody id='"
+				+ "' class='data-table'><table class='category-expenses-table'><thead><tr><th class='label-cell'>Store</th><th class='label-cell'>Spend On</th><th class='numeric-cell'>Amount</th></tr></thead><tbody id='"
 				+ categoryItemsTableBodyId + "'></tbody></table></div>";
 
 		$$("#" + categoryItemsTableIdParentDivId).append(table);
@@ -26,7 +33,7 @@ function createListItem(categoryItem, categoryItemsTableIdParentDivId) {
 
 	var startItemInnerDiv = '<div class="item-inner">';
 
-	var itemTitle = '<div class="item-title color-blue">' + categoryItem.categoryType
+	var itemTitle = '<div class="item-title color-blue">' + categoryItem.categoryDisplayValue
 			+ '</div><div class="item-after"><span class="badge">' + categoryItem.categoryAmount + '</span></div>';
 
 	var endItemInnerDiv = '</div></a>';
@@ -50,12 +57,20 @@ function createCategoryItemsTable(categoryExpenseDisplays, categoryItemsTableBod
 	categoryExpenseDisplays.forEach(function(item) {
 
 		tbody += "<tr><td class='label-cell'>" + item.storeDescription
-				+ "</td><td class='label-cell'>" + item.expenseBy + "</td><td class='numeric-cell'>" + item.amount
+				+ "</td><td class='label-cell'>" + item.spendOn + "</td><td class='numeric-cell'>" + item.amount
 				+ "</td></tr>";
 
 	});
 
 	$$("#" + categoryItemsTableBodyId).html(tbody);
+}
+
+function getCurrentMonthNameDisplay(){
+	var monthNames = ["January", "February", "March", "April", "May", "June",
+		  "July", "August", "September", "October", "November", "December"
+		];
+	
+	return monthNames[new Date().getMonth()];
 }
 
 function getRandomInt() {

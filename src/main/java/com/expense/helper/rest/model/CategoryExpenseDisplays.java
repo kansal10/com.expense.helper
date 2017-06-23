@@ -2,23 +2,23 @@ package com.expense.helper.rest.model;
 
 import java.util.List;
 
-public class CategoryExpensesDisplay
+public class CategoryExpenseDisplays
 {
-    private final CategoryType categoryType;
+    private final String categoryDisplayValue;
     private final float categoryAmount;
     private final List<ExpenseDisplay> categoryExpenseDisplays;
 
-    public CategoryExpensesDisplay(CategoryType categoryType, float categoryAmount,
+    public CategoryExpenseDisplays(String categoryDisplayValue, float categoryAmount,
             List<ExpenseDisplay> categoryExpenseDisplays)
     {
-        this.categoryType = categoryType;
+        this.categoryDisplayValue = categoryDisplayValue;
         this.categoryAmount = categoryAmount;
         this.categoryExpenseDisplays = categoryExpenseDisplays;
     }
 
-    public CategoryType getCategoryType()
+    public String getCategoryDisplayValue()
     {
-        return categoryType;
+        return categoryDisplayValue;
     }
 
     public float getCategoryAmount()

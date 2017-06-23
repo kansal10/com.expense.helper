@@ -3,7 +3,8 @@ package com.expense.helper.rest.json.model;
 import java.time.LocalDateTime;
 
 import com.expense.helper.rest.model.CategoryType;
-import com.expense.helper.rest.model.ExpensedBy;
+import com.expense.helper.rest.model.SpendBy;
+import com.expense.helper.rest.model.SpendOn;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 
@@ -19,10 +20,11 @@ public class JSExpenseDetails
     private String storeDescription;
     private CategoryType categoryType;
     private String comments;
-    private ExpensedBy expensedBy;
+    private SpendBy spendBy;
+    private SpendOn spendOn;
 
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    private LocalDateTime expensedOn;
+    private LocalDateTime expenseDateTime;
 
     public float getExpenseAmount()
     {
@@ -44,22 +46,27 @@ public class JSExpenseDetails
         return comments;
     }
 
-    public ExpensedBy getExpensedBy()
+    public SpendBy getSpendBy()
     {
-        return expensedBy;
+        return spendBy;
     }
 
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    public LocalDateTime getExpensedOn()
+    public LocalDateTime getExpenseDateTime()
     {
-        return expensedOn;
+        return expenseDateTime;
+    }
+
+    public SpendOn getSpendOn()
+    {
+        return spendOn;
     }
 
     @Override
     public String toString()
     {
         return "JSExpenseDetails [expenseAmount=" + expenseAmount + ", storeDescription=" + storeDescription
-                + ", categoryType=" + categoryType + ", comments=" + comments + ", expensedBy=" + expensedBy
-                + ", expensedOn=" + expensedOn + "]";
+                + ", categoryType=" + categoryType + ", comments=" + comments + ", spendBy=" + spendBy + ", spendOn="
+                + spendOn + ", expenseDateTime=" + expenseDateTime + "]";
     }
 }

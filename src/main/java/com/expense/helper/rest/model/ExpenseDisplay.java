@@ -5,19 +5,21 @@ import java.time.LocalDateTime;
 public class ExpenseDisplay
 {
     private String storeDescription;
-    private ExpensedBy expenseBy;
+    private SpendBy spendBy;
     private String comment;
     private float amount;
-    private LocalDateTime expensedOn;
+    private LocalDateTime expenseDateTime;
     private CategoryType categoryType;
+    private SpendOn spendOn;
 
     private ExpenseDisplay(Builder builder)
     {
         this.storeDescription = builder.storeDescription;
-        this.expenseBy = builder.expenseBy;
+        this.spendBy = builder.spendBy;
+        this.spendOn = builder.spendOn;
         this.comment = builder.comment;
         this.amount = builder.amount;
-        this.expensedOn = builder.expensedOn;
+        this.expenseDateTime = builder.expenseDateTime;
     }
 
     public String getStoreDescription()
@@ -25,9 +27,9 @@ public class ExpenseDisplay
         return storeDescription;
     }
 
-    public ExpensedBy getExpenseBy()
+    public SpendBy getSpendBy()
     {
-        return expenseBy;
+        return spendBy;
     }
 
     public String getComment()
@@ -40,9 +42,9 @@ public class ExpenseDisplay
         return amount;
     }
 
-    public LocalDateTime getExpensedOn()
+    public LocalDateTime getExpenseDateTime()
     {
-        return expensedOn;
+        return expenseDateTime;
     }
 
     public CategoryType getCategoryType()
@@ -50,13 +52,19 @@ public class ExpenseDisplay
         return categoryType;
     }
 
+    public SpendOn getSpendOn()
+    {
+        return spendOn;
+    }
+
     public static class Builder
     {
         private String storeDescription;
-        private ExpensedBy expenseBy;
+        private SpendBy spendBy;
         private String comment;
         private float amount;
-        private LocalDateTime expensedOn;
+        private LocalDateTime expenseDateTime;
+        private SpendOn spendOn;
 
         public Builder storeDescription(String storeDescription)
         {
@@ -64,9 +72,9 @@ public class ExpenseDisplay
             return this;
         }
 
-        public Builder expenseBy(ExpensedBy expenseBy)
+        public Builder spendBy(SpendBy spendBy)
         {
-            this.expenseBy = expenseBy;
+            this.spendBy = spendBy;
             return this;
         }
 
@@ -82,9 +90,15 @@ public class ExpenseDisplay
             return this;
         }
 
-        public Builder expensedOn(LocalDateTime expensedOn)
+        public Builder expenseDateTime(LocalDateTime expenseDateTime)
         {
-            this.expensedOn = expensedOn;
+            this.expenseDateTime = expenseDateTime;
+            return this;
+        }
+
+        public Builder spendOn(SpendOn spendOn)
+        {
+            this.spendOn = spendOn;
             return this;
         }
 

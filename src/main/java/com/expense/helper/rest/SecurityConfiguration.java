@@ -45,4 +45,10 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
+    // @Override
+    // public void configure(WebSecurity web) throws Exception
+    // {
+    // web.ignoring().antMatchers("/resources/**");
+    // }
 }

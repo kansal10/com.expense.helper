@@ -19,7 +19,9 @@ public interface ExpenseDetails
 
     String getComment();
 
-    ExpensedBy getExpensedBy();
+    SpendBy getSpendBy();
 
-    LocalDateTime getExpensedOn();
+    LocalDateTime getExpenseDateTime();
+
+    SpendOn getSpendOn();
 }

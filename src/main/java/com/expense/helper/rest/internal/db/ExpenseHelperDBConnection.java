@@ -11,8 +11,8 @@ import org.sqlite.SQLiteDataSource;
  */
 public class ExpenseHelperDBConnection
 {
-
-    private static final String LOCAL_DATABSE_FILE_URL = "C://sqlite/expensehelper.db";
+    // private static final String LOCAL_DATABSE_FILE_URL = "C://sqlite/expensehelper.db";
+    private static final String LOCAL_DATABSE_FILE_URL = "/home/pi/sqliteDB/expensehelper.db";
 
     /**
      * @return The database connection. This value will never be {@code null}.
@@ -43,25 +43,4 @@ public class ExpenseHelperDBConnection
 
         return null;
     }
-
-    // String DATASOURCE_CONTEXT = "java:comp/env/jdbc/blah";
-    //
-    // Connection result = null;
-    // try {
-    // DataSource datasource =
-    // (DataSource)initialContext.lookup(DATASOURCE_CONTEXT);
-    // if (datasource != null) {
-    // result = datasource.getConnection();
-    // }
-    // else {
-    // log("Failed to lookup datasource.");
-    // }
-    // }
-    // catch ( NamingException ex ) {
-    // log("Cannot get connection: " + ex);
-    // }
-    // catch(SQLException ex){
-    // log("Cannot get connection: " + ex);
-    // }
-    // return result;
 }

@@ -8,7 +8,8 @@ import java.time.LocalDateTime;
 
 import com.expense.helper.rest.model.CategoryType;
 import com.expense.helper.rest.model.ExpenseDetails;
-import com.expense.helper.rest.model.ExpensedBy;
+import com.expense.helper.rest.model.SpendBy;
+import com.expense.helper.rest.model.SpendOn;
 
 /**
  * Implementation of {@link ExpenseDetailsImpl}.
@@ -17,12 +18,13 @@ import com.expense.helper.rest.model.ExpensedBy;
  */
 public class ExpenseDetailsImpl implements ExpenseDetails
 {
-    private BigDecimal expenseAmount;
-    private String storeDescription;
-    private CategoryType categoryType;
-    private String comment;
-    private ExpensedBy expensedBy;
-    private LocalDateTime expensedOn;
+    private final BigDecimal expenseAmount;
+    private final String storeDescription;
+    private final CategoryType categoryType;
+    private final String comment;
+    private final SpendBy spendBy;
+    private final SpendOn spendOn;
+    private final LocalDateTime expenseDateTime;
 
     private ExpenseDetailsImpl(Builder builder)
     {
@@ -30,8 +32,9 @@ public class ExpenseDetailsImpl implements ExpenseDetails
         this.storeDescription = builder.storeDescription;
         this.categoryType = builder.categoryType;
         this.comment = builder.comment;
-        this.expensedBy = builder.expensedBy;
-        this.expensedOn = builder.expensedOn;
+        this.spendBy = builder.spendBy;
+        this.expenseDateTime = builder.expenseDateTime;
+        this.spendOn = builder.spendOn;
     }
 
     @Override
@@ -59,15 +62,21 @@ public class ExpenseDetailsImpl implements ExpenseDetails
     }
 
     @Override
-    public ExpensedBy getExpensedBy()
+    public SpendBy getSpendBy()
     {
-        return expensedBy;
+        return spendBy;
     }
 
     @Override
-    public LocalDateTime getExpensedOn()
+    public LocalDateTime getExpenseDateTime()
     {
-        return expensedOn;
+        return expenseDateTime;
+    }
+
+    @Override
+    public SpendOn getSpendOn()
+    {
+        return spendOn;
     }
 
     public static class Builder
@@ -76,8 +85,9 @@ public class ExpenseDetailsImpl implements ExpenseDetails
         private String storeDescription;
         private CategoryType categoryType;
         private String comment;
-        private ExpensedBy expensedBy;
-        private LocalDateTime expensedOn;
+        private SpendBy spendBy;
+        private LocalDateTime expenseDateTime;
+        private SpendOn spendOn;
 
         public Builder expenseAmount(BigDecimal expenseAmount)
         {
@@ -107,15 +117,21 @@ public class ExpenseDetailsImpl implements ExpenseDetails
             return this;
         }
 
-        public Builder expensedBy(ExpensedBy expensedBy)
+        public Builder spendBy(SpendBy spendBy)
         {
-            this.expensedBy = rejectIfNull(expensedBy, "expensedBy");
+            this.spendBy = rejectIfNull(spendBy, "spendBy");
             return this;
         }
 
-        public Builder expensedOn(LocalDateTime expensedOn)
+        public Builder expenseDateTime(LocalDateTime expenseDateTime)
         {
-            this.expensedOn = rejectIfNull(expensedOn, "expensedOn");
+            this.expenseDateTime = rejectIfNull(expenseDateTime, "expenseDateTime");
+            return this;
+        }
+
+        public Builder spendOn(SpendOn spendOn)
+        {
+            this.spendOn = rejectIfNull(spendOn, "spendOn");
             return this;
         }
 
@@ -125,4 +141,5 @@ public class ExpenseDetailsImpl implements ExpenseDetails
             return new ExpenseDetailsImpl(this);
         }
     }
+
 }
